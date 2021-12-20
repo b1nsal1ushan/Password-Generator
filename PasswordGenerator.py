@@ -23,16 +23,16 @@ while(True):
     #sub-loop of putting character and making sure it's not previously used and it contain every character
     while(True):
 
-        #taking a random from the strings
+        #taking from that characters
         decision = random.randint(1, 4)
         if (decision == 1):
-            currentCharacter = random.choice(stringOfCaps)
+            currentCharacter = capCharacter
         elif (decision == 2):
-            currentCharacter = random.choice(stringOfSmall)
+            currentCharacter = smallCharacter
         elif (decision == 3):
-            currentCharacter = random.choice(stringOfNum)
+            currentCharacter = Num
         elif (decision == 4):
-            currentCharacter = random.choice(stringOfSpecial)
+            currentCharacter = special
 
         #checking if it is in the passowrd or not. Also checking it doesn't repeat
         if (previousCharacter != currentCharacter and newPassword.find(currentCharacter) == -1):
