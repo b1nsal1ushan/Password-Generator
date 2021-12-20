@@ -2,7 +2,7 @@ import random
 
 #setting up variables
 newPassword = ""
-preiviousDecision = 0
+previousCharacter = ""
 length = 0
 
 #setting up strings
@@ -34,14 +34,14 @@ while(True):
         elif (decision == 4):
             currentCharacter = random.choice(stringOfSpecial)
 
-        #checking if it is in the passowrd or not. Also checking it chooses a different cattegory
-        if (preiviousDecision != decision and newPassword.find(currentCharacter) == -1):
+        #checking if it is in the passowrd or not. Also checking it doesn't repeat
+        if (previousCharacter != currentCharacter and newPassword.find(currentCharacter) == -1):
             break
 
     #putting characters together
     newPassword = newPassword + currentCharacter
     length = length + 1
-    preiviousDecision = decision
+    previousCharacter = currentCharacter
 
     #stopping if it is more than 8
     stop = random.randint(0, 2)
