@@ -1,22 +1,52 @@
 import random
-#declaring variables
+
+#setting up variables
 newPassword = ""
+previousCharacter = ""
 length = 0
-stringOfCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!_@#$%^&*()<>?:"
-#loops
+
+#setting up strings
+stringOfCaps = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+stringOfSmall = "abcdefghijklmnopqrstuvwxyz"
+stringOfNum = "1234567890"
+stringOfSpecial = "!@#$%^&*()_+={[}]':;><?/"
+
+#main loop and generating a password
 while(True):
-#character loop to make sure it doesn't repeat
+
+    #taking everycharacter randomly    
+    capCharacter = random.choice(stringOfCaps)
+    smallCharacter = random.choice(stringOfSmall)
+    Num = random.choice(stringOfNum)
+    special = random.choice(stringOfSpecial)
+
+    #sub-loop of putting character and making sure it's not previously used and it contain every character
     while(True):
-        currentCharacter = random.choice(stringOfCharacters)
-        if (newPassword.find(currentCharacter) == -1):
+
+        #taking a random from the strings
+        decision = random.randint(1, 4)
+        if (decision == 1):
+            currentCharacter = random.choice(stringOfCaps)
+        elif (decision == 2):
+            currentCharacter = random.choice(stringOfSmall)
+        elif (decision == 3):
+            currentCharacter = random.choice(stringOfNum)
+        elif (decision == 4):
+            currentCharacter = random.choice(stringOfSpecial)
+
+        #checking if it is in the passowrd or not. Also checking it doesn't repeat
+        if (previousCharacter != currentCharacter and newPassword.find(currentCharacter) == -1):
             break
-#putting that character in the password
-    newPassword = newPassword + currentCharacter    
+
+    #putting characters together
+    newPassword = newPassword + currentCharacter
     length = length + 1
-#checking the length, making sure it's more than 8
+    previousCharacter = currentCharacter
+
+    #stopping if it is more than 8
     stop = random.randint(0, 2)
     if (length >= 8 and stop == 2):
         break    
+    
 #New Password!!
-print("New password is "+newPassword)
-input()
+print(newPassword)
