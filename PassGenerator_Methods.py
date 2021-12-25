@@ -51,13 +51,7 @@ def newPassword():
         
     #main loop and generating a password
     while(True):
-
-        #taking everycharacter randomly    
-        capCharacter = random.choice(stringOfCaps)
-        smallCharacter = random.choice(stringOfSmall)
-        Num = random.choice(stringOfNum)
-        special = random.choice(stringOfSpecial)
-
+        
         #sub-loop of putting character and making sure it's not previously used and it contain every character
         while(True):
 
