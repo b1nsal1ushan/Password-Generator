@@ -19,27 +19,55 @@ namespace PasswordManagerDesktop
             InitializeComponent();                       
         }
 
+        string pythonInterpreter = "\"";
+        string pythonProgram = "\"";
+
         private void btnShowPass_Click(object sender, EventArgs e)
-        {
-            var pythonInterpreter = ""; //include path
-            var pythonPasswordGenerator = "PasswordGenerator.py"; 
-            string password;
-            StreamReader sr;
-
-            ProcessStartInfo startInfo = new ProcessStartInfo() { FileName = pythonInterpreter, Arguments = pythonPasswordGenerator, UseShellExecute = false, RedirectStandardOutput = true, CreateNoWindow = true};
-
-            using (Process process = new Process() { StartInfo = startInfo,})
+        {                               
+            try
             {
-                process.Start();
+                errorFile.Clear();
+                string password;
+                StreamReader sr;
 
-                sr = process.StandardOutput;
-                password = sr.ReadToEnd();
+                ProcessStartInfo startInfo = new ProcessStartInfo() { FileName = pythonInterpreter, Arguments = pythonProgram, UseShellExecute = false, RedirectStandardOutput = true, CreateNoWindow = true };
 
-                process.WaitForExit();
+                using (Process process = new Process() { StartInfo = startInfo, })
+                {
+                    process.Start();
+
+                    sr = process.StandardOutput;
+                    password = sr.ReadToEnd();
+
+                    process.WaitForExit();
+                }
+
+                    newPassword.Text = $"New password is {password}";
+                }
+                catch (Exception ex)
+                {
+                    error = true;
+                    errorFile.SetError(newPassword, ex.Message);
+                }                           
+            return;                        
+        }
+
+        private void btnOpenPswdGen_Click(object sender, EventArgs e)
+        {
+            if (openPythonGene.ShowDialog() == DialogResult.OK)
+            {
+                pythonProgram = $"{pythonProgram}{openPythonGene.FileName}\"";
+                txtBoxPswGenPath.Text = pythonProgram;                
             }
-            
-            newPassword.Text = $"New password is {password}";            
-            newPassword.Visible = true;
+        }
+
+        private void btnPythonInterpreter_Click(object sender, EventArgs e)
+        {
+            if (openPythonInterpreter.ShowDialog() == DialogResult.OK)
+            {
+                pythonInterpreter = $"{pythonInterpreter}{openPythonInterpreter.FileName}\"";
+                txtBoxPythonPath.Text = pythonInterpreter;                
+            }            
         }
     }
 }
